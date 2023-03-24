@@ -35,14 +35,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: -25,
     marginBottom: 15,
-    width: deviceSize.width / 1.1,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#a0a0a0',
-    borderRadius: 15,
-    marginVertical: 10,
-    textAlign: 'center',
+    alignItems: 'center',
   },
   button: {
     width: deviceSize.width / 1.1,
