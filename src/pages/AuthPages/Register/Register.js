@@ -9,7 +9,7 @@ import database from '@react-native-firebase/database';
 import styles from './Register.style';
 import Button from '../../../components/Button/Button';
 import Input from '../../../components/Input/Input';
-import authErrorMessages from '../../../utils/AuthErrorMessages';
+import authErrorMessages from '../../../utils/authErrorMessages';
 
 const initialFormValues = {
   username: '',
@@ -61,6 +61,7 @@ const Register = ({navigation}) => {
           type: 'success',
           floating: true,
         });
+        navigation.navigate('Login');
       } catch (error) {
         showMessage({
           message: authErrorMessages(error.code),

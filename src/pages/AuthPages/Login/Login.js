@@ -8,7 +8,7 @@ import {showMessage} from 'react-native-flash-message';
 import styles from './Login.style';
 import Button from '../../../components/Button/Button';
 import Input from '../../../components/Input/Input';
-import authErrorMessages from '../../../utils/AuthErrorMessages';
+import authErrorMessages from '../../../utils/authErrorMessages';
 
 const initialFormValues = {
   email: '',
@@ -37,6 +37,7 @@ const Login = ({navigation}) => {
         type: 'success',
         floating: true,
       });
+      navigation.navigate('BottomTabPages');
     } catch (error) {
       showMessage({
         message: authErrorMessages(error.code),
