@@ -37,7 +37,6 @@ const Login = ({navigation}) => {
         type: 'success',
         floating: true,
       });
-      navigation.navigate('BottomTabPages');
     } catch (error) {
       showMessage({
         message: authErrorMessages(error.code),
