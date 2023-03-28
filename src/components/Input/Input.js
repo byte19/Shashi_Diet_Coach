@@ -21,6 +21,7 @@ const Input = ({
         secureTextEntry={secureTextEntry}
         value={value}
         onChangeText={onChangeText}
+        placeholderTextColor="gray"
       />
       <Icon name={name} size={20} color="gray" onPress={onPress} />
     </View>

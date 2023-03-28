@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import FlashMessage from 'react-native-flash-message';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import Loading from './components/Loading/Loading';
 
 import Main from './pages/AuthPages/Main/Main';
 import Login from './pages/AuthPages/Login/Login';
@@ -43,22 +45,39 @@ function BottomTabPages() {
 
 const Router = () => {
   const [userSession, setUserSession] = useState();
+  const [userInfo, setUserInfo] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     auth().onAuthStateChanged(user => {
       setUserSession(user);
     });
+    const userId = auth().currentUser.uid;
+    database()
+      .ref(`/users/${userId}/userInfo`)
+      .once('value')
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          setUserInfo(true);
+          setLoading(false);
+        }
+      });
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {!userSession ? (
           <Stack.Screen name="AuthPages" component={AuthPages} />
+        ) : userInfo ? (
+          <Stack.Screen name="BottomTabPages" component={BottomTabPages} />
         ) : (
           <Stack.Screen name="UserInfo" component={UserInfo} />
         )}
-        <Stack.Screen name="BottomTabPages" component={BottomTabPages} />
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>
