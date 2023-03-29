@@ -7,13 +7,16 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
-    borderBottomWidth: 1,
-    marginHorizontal: 20,
+    alignItems: 'center',
     padding: 10,
+    paddingTop: 15,
+    borderBottomWidth: 1,
+    borderColor: colors.logoGreen,
+    marginHorizontal: 40,
   },
   header_text: {
-    alignSelf: 'center',
-    fontSize: 20,
-    color: 'black',
+    fontSize: 25,
+    fontWeight: '400',
+    color: colors.logoGreen,
   },
 });
