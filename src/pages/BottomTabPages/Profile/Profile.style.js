@@ -6,7 +6,7 @@ const deviceSize = Dimensions.get('window');
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4eee94',
+    backgroundColor: colors.greenBlue,
   },
   top_container: {
     flexDirection: 'row',
@@ -75,6 +75,7 @@ export default StyleSheet.create({
     borderColor: 'gray',
     paddingBottom: 10,
     margin: 15,
+    marginBottom: 20,
   },
   info_containers: {
     alignItems: 'center',
@@ -88,5 +89,50 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.darkGray,
+  },
+  calculates_container: {
+    marginBottom: 20,
+  },
+  bmi_calorieNeed_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 15,
+    marginHorizontal: 5,
+  },
+  bmi_container: {
+    borderRadius: 10,
+    width: deviceSize.width / 2.2,
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: '#4B778D',
+    elevation: 12,
+  },
+  calorieNeed_container: {
+    borderRadius: 10,
+    width: deviceSize.width / 2.2,
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: '#88B04B',
+    elevation: 12,
+  },
+  fatloss_container: {
+    borderRadius: 10,
+    width: deviceSize.width / 2.2,
+    alignItems: 'center',
+    alignSelf: 'center',
+    padding: 5,
+    backgroundColor: '#4D8F6F',
+    elevation: 12,
+  },
+  calculates_title: {
+    fontSize: 15,
+    color: 'white',
+    marginBottom: 7,
+    fontWeight: '600',
+  },
+  calculates_text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
