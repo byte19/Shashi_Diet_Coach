@@ -19,4 +19,7 @@ export default StyleSheet.create({
     fontWeight: '400',
     color: colors.logoGreen,
   },
+  plans_title: {
+    fontSize: 16,
+  },
 });

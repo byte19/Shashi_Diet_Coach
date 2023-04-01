@@ -1,5 +1,3 @@
-import React from 'react';
-
 const CalculateUserInfo = ({height, weight, age, activityLevel}) => {
   const heightInMeters = height / 100;
   const bmi = weight / (heightInMeters * heightInMeters);

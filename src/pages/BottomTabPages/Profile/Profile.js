@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
 import styles from './Profile.style';
-import CalculateUserInfo from '../../../components/Calculates/CalculateUserInfo';
+import CalculateUserInfo from '../../../utils/CalculateUserInfo';
 
 const Profile = ({navigation}) => {
   const [user, setUser] = useState();
