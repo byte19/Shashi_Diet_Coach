@@ -32,7 +32,7 @@ const Profile = ({navigation}) => {
 
   const {bmi, maintenanceCalories, fatLossCalories} =
     user?.userInfo?.height && user?.userInfo?.weight && user?.userInfo?.age
-      ? CalculateUserInfo({
+      ? CalculateUserInfo.calculateInfo({
           height: user.userInfo.height,
           weight: user.userInfo.weight,
           age: user.userInfo.age,

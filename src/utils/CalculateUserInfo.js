@@ -1,4 +1,4 @@
-const CalculateUserInfo = ({height, weight, age, activityLevel}) => {
+const calculateInfo = ({height, weight, age, activityLevel}) => {
   const heightInMeters = height / 100;
   const bmi = weight / (heightInMeters * heightInMeters);
   const bmr = 10 * weight + 6.25 * height - 5 * age;
@@ -28,4 +28,22 @@ const CalculateUserInfo = ({height, weight, age, activityLevel}) => {
   return {bmi, maintenanceCalories, fatLossCalories};
 };
 
-export default CalculateUserInfo;
+const suggestDiet = ({bmi, maintenanceCalories, fatLossCalories}) => {
+  let diet;
+  if (bmi >= 30) {
+    diet = 'Low Carb';
+  } else if (bmi >= 25 && bmi < 30 && maintenanceCalories > 2500) {
+    diet = 'High Protein Oatmeal';
+  } else if (bmi >= 25 && bmi < 30 && maintenanceCalories <= 2500) {
+    diet = 'Vegeterian';
+  } else if (bmi >= 18.5 && bmi < 25 && fatLossCalories > 2000) {
+    diet = 'High Protein Oatmeal';
+  } else if (bmi >= 18.5 && bmi < 25 && fatLossCalories <= 2000) {
+    diet = 'Low-Fat (1 Percent or 2 Percent) Milk';
+  } else {
+    diet = 'Starlite Cuisine Crispy Taqiutos, Vegan Chicken Style';
+  }
+  return diet;
+};
+
+export default {calculateInfo, suggestDiet};

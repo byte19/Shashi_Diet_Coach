@@ -39,7 +39,6 @@ const UserInfo = ({navigation}) => {
       const dbRef = database().ref(`/users/${userId}/userInfo`);
       dbRef.set(userInfo);
       navigation.navigate('BottomTabPages');
-      console.log(userInfo);
     }
   }
 
