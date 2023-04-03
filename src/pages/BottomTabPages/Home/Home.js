@@ -87,7 +87,7 @@ const Home = ({navigation}) => {
         numColumns={2}
       />
       <View style={{flex: 1, marginTop: -250}}>
-        <Text>Recommended Diet Program</Text>
+        <Text>Recommended Diet Programee</Text>
         <TouchableOpacity onPress={handleRecommended}>
           <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
         </TouchableOpacity>
