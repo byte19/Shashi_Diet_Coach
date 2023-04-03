@@ -77,7 +77,6 @@ const Home = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.header_text}>Home</Text>
       </View>
-      <Text>Hello</Text>
       <Button title="Create" onPress={handleCreate} />
       <Text style={styles.plans_title}>Diet Plans</Text>
       <FlatList
@@ -87,7 +86,7 @@ const Home = ({navigation}) => {
         numColumns={2}
       />
       <View style={{flex: 1, marginTop: -250}}>
-        <Text>Recommended Diet Programee</Text>
+        <Text>Recommended Diet Program</Text>
         <TouchableOpacity onPress={handleRecommended}>
           <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
         </TouchableOpacity>

@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {
+  Button,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './CreateDietProgram.style';
@@ -11,6 +18,7 @@ const CreateDietProgram = ({navigation}) => {
 
   const handleSearch = async () => {
     const data = await fetchFoodData(food);
+    console.log(data.hints[0].food);
     setFoodData(data);
   };
 
@@ -31,6 +39,10 @@ const CreateDietProgram = ({navigation}) => {
       <Button title="Search" onPress={handleSearch} />
       {foodData && (
         <View>
+          <Image
+            style={{width: 100, height: 100}}
+            source={{uri: foodData.hints[0].food.image}}
+          />
           <Text>{foodData.hints[0].food.label}</Text>
           <Text>{foodData.hints[0].food.nutrients.ENERC_KCAL}</Text>
         </View>
