@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, FlatList} from 'react-native';
+import {View, Text, Button, FlatList, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -9,8 +9,8 @@ import DietPlans from '../../../components/cards/DietPlansCard/DietPlansCard';
 import CalculateUserInfo from '../../../utils/CalculateUserInfo';
 
 const Home = ({navigation}) => {
-  const [dietPrograms, setDietPrograms] = useState([]);
   const [user, setUser] = useState();
+  const [dietPrograms, setDietPrograms] = useState([]);
   const [recommendedDiet, setRecommendedDiet] = useState('');
 
   useEffect(() => {
@@ -63,6 +63,15 @@ const Home = ({navigation}) => {
     navigation.navigate('CreateDietProgram');
   }
 
+  function handleRecommended() {
+    const selectedProgram = dietPrograms.find(
+      program => program.label === recommendedDiet,
+    );
+    if (selectedProgram) {
+      navigation.navigate('ProgramDetail', {program: selectedProgram});
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -79,7 +88,9 @@ const Home = ({navigation}) => {
       />
       <View style={{flex: 1, marginTop: -250}}>
         <Text>Recommended Diet Program</Text>
-        <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
+        <TouchableOpacity onPress={handleRecommended}>
+          <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
