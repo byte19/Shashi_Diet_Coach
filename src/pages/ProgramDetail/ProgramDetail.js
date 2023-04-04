@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../../styles/colors';
@@ -22,23 +29,42 @@ const ProgramDetail = ({navigation, route}) => {
       </View>
       <Image style={styles.image} source={getProgramImage(program)} />
       <Text style={styles.label}>{program.label}</Text>
-      <Text style={styles.cate_cont_title}>Category</Text>
-      <Text style={styles.category}>{program.category}</Text>
-      <Text style={styles.cate_cont_title}>Contents</Text>
-      <Text style={styles.foodContentsLabel}>{program.foodContentsLabel}</Text>
-      <View style={styles.nutrients_container}>
-        <Text style={styles.nutrients}>
-          Energy / Calories : {program.nutrients.ENERC_KCAL}
-        </Text>
-        <Text style={styles.nutrients}>
-          Carbohydrates : {program.nutrients.CHOCDF}
-        </Text>
-        <Text style={styles.nutrients}>Fat : {program.nutrients.FAT}</Text>
-        <Text style={styles.nutrients}>Fiber : {program.nutrients.FIBTG}</Text>
-        <Text style={styles.nutrients}>
-          Protein : {program.nutrients.PROCNT}
-        </Text>
+      <View style={styles.category_container}>
+        <Text style={styles.category_title}>Category =</Text>
+        <Text style={styles.category}>{program.category}</Text>
       </View>
+      <View style={styles.contents_container}>
+        <Text style={styles.contents_title}>Contents =</Text>
+        {program.foodContentsLabel ? (
+          <Text style={styles.foodContentsLabel}>
+            {program.foodContentsLabel}
+          </Text>
+        ) : (
+          <Text> Undefined</Text>
+        )}
+      </View>
+      <View style={styles.nutrients_container}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Text style={styles.nutrients}>
+            Energy / Calories : {program.nutrients.ENERC_KCAL.toFixed(2)}
+          </Text>
+          <Text style={styles.nutrients}>
+            Carbohydrates : {program.nutrients.CHOCDF.toFixed(2)}
+          </Text>
+          <Text style={styles.nutrients}>
+            Fat : {program.nutrients.FAT.toFixed(2)}
+          </Text>
+          <Text style={styles.nutrients}>
+            Fiber : {program.nutrients.FIBTG.toFixed(2)}
+          </Text>
+          <Text style={styles.nutrients}>
+            Protein : {program.nutrients.PROCNT.toFixed(2)}
+          </Text>
+        </ScrollView>
+      </View>
+      <TouchableOpacity>
+        <Text style={styles.start_text}>Start</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -48,6 +74,7 @@ export default ProgramDetail;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   header: {
     flexDirection: 'row',
@@ -74,15 +101,28 @@ const styles = StyleSheet.create({
   },
   label: {
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  cate_cont_title: {
-    borderBottomWidth: 1,
+  category_container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  category_title: {
     margin: 5,
-    marginRight: 300,
-    marginLeft: 7,
+    marginLeft: 5,
+    padding: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  contents_container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  contents_title: {
+    margin: 5,
+    marginLeft: 5,
     padding: 5,
     fontSize: 16,
     fontWeight: 'bold',
@@ -92,15 +132,31 @@ const styles = StyleSheet.create({
   },
   foodContentsLabel: {
     marginLeft: 10,
+    flex: 1,
   },
   nutrients_container: {
     margin: 10,
     marginTop: 20,
-    borderWidth: 1,
+    elevation: 3,
     borderRadius: 10,
-    padding: 7,
+    padding: 10,
+    paddingRight: 15,
+    backgroundColor: colors.greenBlue,
+    flexDirection: 'row',
   },
   nutrients: {
-    margin: 3,
+    margin: 10,
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+  start_text: {
+    textAlign: 'center',
+    margin: 10,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: colors.mattegreen,
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 });

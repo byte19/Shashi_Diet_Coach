@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, Button, FlatList, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './Home.style';
 import fetchDietPrograms from '../../../utils/FetchDietPrograms';
@@ -77,19 +78,30 @@ const Home = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.header_text}>Home</Text>
       </View>
-      <Button title="Create" onPress={handleCreate} />
-      <Text style={styles.plans_title}>Diet Plans</Text>
-      <FlatList
-        data={dietPrograms}
-        renderItem={renderDietPlans}
-        keyExtractor={item => item.foodId.toString()}
-        numColumns={2}
-      />
-      <View style={{flex: 1, marginTop: -250}}>
-        <Text>Recommended Diet Program</Text>
-        <TouchableOpacity onPress={handleRecommended}>
-          <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
+      <View style={styles.create_container}>
+        <TouchableOpacity
+          style={styles.touchableOpacity}
+          onPress={handleCreate}>
+          <Text style={styles.create_title}>
+            Create your personal diet program!
+          </Text>
+          <Icon name="plus" size={30} color="white" />
         </TouchableOpacity>
+      </View>
+      <View>
+        <Text style={styles.plans_title}>Diet Plans</Text>
+        <FlatList
+          data={dietPrograms}
+          renderItem={renderDietPlans}
+          keyExtractor={item => item.foodId.toString()}
+          numColumns={2}
+        />
+        <View>
+          <Text style={styles.plans_title}>Recommended Diet Program</Text>
+          <TouchableOpacity onPress={handleRecommended}>
+            <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

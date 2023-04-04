@@ -5,6 +5,7 @@ import colors from '../../../styles/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   header: {
     alignItems: 'center',
@@ -19,7 +20,42 @@ export default StyleSheet.create({
     fontWeight: '400',
     color: colors.logoGreen,
   },
+  create_container: {
+    justifyContent: 'center',
+    backgroundColor: colors.mattegreen,
+    borderRadius: 15,
+    margin: 10,
+    marginTop: 20,
+    paddingHorizontal: 15,
+    paddingRight: 25,
+    height: 70,
+  },
+  touchableOpacity: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  create_title: {
+    fontSize: 15,
+    color: 'white',
+  },
   plans_title: {
-    fontSize: 16,
+    fontSize: 17,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderBottomWidth: 1,
+    margin: 10,
+    paddingBottom: 10,
+    marginHorizontal: 80,
+  },
+  recommended_diet: {
+    backgroundColor: colors.greenBlue,
+    borderRadius: 10,
+    height: 70,
+    textAlign: 'center',
+    fontSize: 15,
+    fontWeight: 'bold',
+    margin: 7,
+    paddingTop: 22,
   },
 });
