@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 
 import styles from './Profile.style';
 import CalculateUserInfo from '../../../utils/CalculateUserInfo';
@@ -40,6 +42,28 @@ const Profile = ({navigation}) => {
         })
       : {bmi: 0, maintenanceCalories: 0, fatLossCalories: 0};
 
+  function handleAddPhoto() {
+    const userId = auth().currentUser.uid;
+    const options = {
+      title: 'Photo',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    launchImageLibrary(options, response => {
+      if ((response.didCancel, response.errorCode)) {
+        showMessage({
+          message: 'Something went wrong.',
+          type: 'danger',
+        });
+      } else {
+        const path = response.assets[0].uri;
+        database().ref(`users/${userId}/photos/profile`).set(path);
+      }
+    });
+  }
+
   function handleLogout() {
     auth().signOut();
   }
@@ -51,11 +75,18 @@ const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.top_container}>
-        <TouchableOpacity>
-          <Image
-            source={require('../../../assets/images/defaultProfile.png')}
-            style={styles.profile_image}
-          />
+        <TouchableOpacity onPress={handleAddPhoto}>
+          {user?.photos?.profile ? (
+            <Image
+              source={{uri: user.photos.profile}}
+              style={styles.profile_image}
+            />
+          ) : (
+            <Image
+              source={require('../../../assets/images/defaultProfile.png')}
+              style={styles.profile_image}
+            />
+          )}
         </TouchableOpacity>
         <View style={styles.top_user_info_container}>
           <Text style={styles.username}>{user ? user.username : ''}</Text>
