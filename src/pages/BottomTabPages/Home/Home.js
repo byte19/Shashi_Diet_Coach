@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './Home.style';
 import fetchDietPrograms from '../../../utils/FetchDietPrograms';
-import DietPlans from '../../../components/cards/DietPlansCard/DietPlansCard';
+import DietPlans from '../../../components/cards/DietPlansCard';
 import CalculateUserInfo from '../../../utils/CalculateUserInfo';
 
 const Home = ({navigation}) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import colors from '../../../styles/colors';
+import colors from '../../styles/colors';
 
 const NutriensCard = ({nutrients, style}) => {
   return (

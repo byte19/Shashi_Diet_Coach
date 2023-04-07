@@ -1,33 +1,17 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
 import colors from '../../styles/colors';
 import getProgramImage from '../../utils/getProgramImage';
-import NutriensCard from '../../components/cards/NutrientsCard/NutriensCard';
+import NutriensCard from '../../components/cards/NutriensCard';
+import HeaderCard from '../../components/cards/HeaderCard';
 
 const ProgramDetail = ({navigation, route}) => {
   const {program} = route.params;
 
-  function handleGoBack() {
-    navigation.goBack();
-  }
-
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Icon name="angle-left" size={30} style={styles.goback_icon} />
-        </TouchableOpacity>
-        <Text style={styles.header_text}>Program Details</Text>
-      </View>
+      <HeaderCard text="Program Detail" navigation={navigation} />
       <Image style={styles.image} source={getProgramImage(program)} />
       <Text style={styles.label}>{program.label}</Text>
       <View style={styles.category_container}>
@@ -58,23 +42,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 20,
-    padding: 10,
-  },
-  goback_icon: {
-    fontSize: 40,
-    marginRight: 20,
-    color: colors.logoGreen,
-  },
-  header_text: {
-    fontSize: 22,
-    fontWeight: '400',
-    color: colors.logoGreen,
-    marginLeft: 10,
   },
   image: {
     width: '100%',

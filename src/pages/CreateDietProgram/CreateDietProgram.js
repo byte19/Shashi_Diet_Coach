@@ -5,7 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import styles from './CreateDietProgram.style';
 import fetchFoodData from '../../utils/FetchFoodData';
-import FoodCard from '../../components/cards/FoodCard/FoodCard';
+import FoodCard from '../../components/cards/FoodCard';
+import HeaderCard from '../../components/cards/HeaderCard';
 
 const CreateDietProgram = ({navigation}) => {
   const [food, setFood] = useState('');
@@ -17,22 +18,13 @@ const CreateDietProgram = ({navigation}) => {
     setFoodData(data);
   };
 
-  function handleGoBack() {
-    navigation.goBack();
-  }
-
   function handleBasket() {
     navigation.navigate('MyBasket');
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <FontAwesome name="angle-left" size={30} style={styles.goback_icon} />
-        </TouchableOpacity>
-        <Text style={styles.header_text}>Create Program</Text>
-      </View>
+      <HeaderCard text="Create Program" navigation={navigation} />
       <View style={styles.input_container}>
         <TextInput
           style={styles.input}
@@ -44,7 +36,7 @@ const CreateDietProgram = ({navigation}) => {
           <FontAwesome name="search" size={25} style={styles.search_icon} />
         </TouchableOpacity>
       </View>
-      <View style={{flex: 1}}>
+      <View style={styles.foodcard_container}>
         {foodData && <FoodCard foodData={foodData} />}
       </View>
       <View style={styles.basket_container}>

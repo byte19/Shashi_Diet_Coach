@@ -6,23 +6,6 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 20,
-    padding: 10,
-  },
-  header_text: {
-    fontSize: 22,
-    fontWeight: '400',
-    color: colors.logoGreen,
-    marginLeft: 20,
-  },
-  goback_icon: {
-    fontSize: 40,
-    margin: 10,
-    color: colors.logoGreen,
-  },
   input_container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -40,6 +23,9 @@ export default StyleSheet.create({
   },
   search_icon: {
     color: colors.darkGray,
+  },
+  foodcard_container: {
+    flex: 1,
   },
   basket_container: {
     borderWidth: 0.6,

@@ -3,8 +3,8 @@ import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import NutriensCard from '../NutrientsCard/NutriensCard';
-import colors from '../../../styles/colors';
+import NutriensCard from './NutriensCard';
+import colors from '../../styles/colors';
 
 const FoodCard = ({foodData}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +32,9 @@ const FoodCard = ({foodData}) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <Icon name="remove" color="red" size={30} />
+        <TouchableOpacity>
+          <Icon name="plus" color="green" size={30} />
+        </TouchableOpacity>
       </View>
       <Collapsible collapsed={!isOpen}>
         <NutriensCard
