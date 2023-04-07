@@ -89,7 +89,7 @@ const Home = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View>
-        <Text style={styles.plans_title}>Diet Plans</Text>
+        <Text style={styles.plans_title}>Diet Programs</Text>
         <FlatList
           data={dietPrograms}
           renderItem={renderDietPlans}

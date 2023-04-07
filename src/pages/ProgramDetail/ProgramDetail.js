@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../../styles/colors';
 import getProgramImage from '../../utils/getProgramImage';
+import NutriensCard from '../../components/cards/NutrientsCard/NutriensCard';
 
 const ProgramDetail = ({navigation, route}) => {
   const {program} = route.params;
@@ -43,25 +44,7 @@ const ProgramDetail = ({navigation, route}) => {
           <Text> Undefined</Text>
         )}
       </View>
-      <View style={styles.nutrients_container}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <Text style={styles.nutrients}>
-            Energy / Calories : {program.nutrients.ENERC_KCAL.toFixed(2)}
-          </Text>
-          <Text style={styles.nutrients}>
-            Carbohydrates : {program.nutrients.CHOCDF.toFixed(2)}
-          </Text>
-          <Text style={styles.nutrients}>
-            Fat : {program.nutrients.FAT.toFixed(2)}
-          </Text>
-          <Text style={styles.nutrients}>
-            Fiber : {program.nutrients.FIBTG.toFixed(2)}
-          </Text>
-          <Text style={styles.nutrients}>
-            Protein : {program.nutrients.PROCNT.toFixed(2)}
-          </Text>
-        </ScrollView>
-      </View>
+      <NutriensCard nutrients={program.nutrients} />
       <TouchableOpacity>
         <Text style={styles.start_text}>Start</Text>
       </TouchableOpacity>
@@ -91,6 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '400',
     color: colors.logoGreen,
+    marginLeft: 10,
   },
   image: {
     width: '100%',

@@ -1,16 +1,11 @@
 import React, {useState} from 'react';
-import {
-  Button,
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Text, TextInput, View, TouchableOpacity, Image} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './CreateDietProgram.style';
 import fetchFoodData from '../../utils/FetchFoodData';
+import FoodCard from '../../components/cards/FoodCard/FoodCard';
 
 const CreateDietProgram = ({navigation}) => {
   const [food, setFood] = useState('');
@@ -26,27 +21,44 @@ const CreateDietProgram = ({navigation}) => {
     navigation.goBack();
   }
 
+  function handleBasket() {
+    navigation.navigate('MyBasket');
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleGoBack}>
-        <Icon name="angle-left" size={30} style={styles.goback_icon} />
-      </TouchableOpacity>
-      <TextInput
-        value={food}
-        onChangeText={setFood}
-        placeholder="Enter food name"
-      />
-      <Button title="Search" onPress={handleSearch} />
-      {foodData && (
-        <View>
-          <Image
-            style={{width: 100, height: 100}}
-            source={{uri: foodData.hints[0].food.image}}
-          />
-          <Text>{foodData.hints[0].food.label}</Text>
-          <Text>{foodData.hints[0].food.nutrients.ENERC_KCAL}</Text>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleGoBack}>
+          <FontAwesome name="angle-left" size={30} style={styles.goback_icon} />
+        </TouchableOpacity>
+        <Text style={styles.header_text}>Create Program</Text>
+      </View>
+      <View style={styles.input_container}>
+        <TextInput
+          style={styles.input}
+          value={food}
+          onChangeText={setFood}
+          placeholder="Enter food name"
+        />
+        <TouchableOpacity onPress={handleSearch}>
+          <FontAwesome name="search" size={25} style={styles.search_icon} />
+        </TouchableOpacity>
+      </View>
+      <View style={{flex: 1}}>
+        {foodData && <FoodCard foodData={foodData} />}
+      </View>
+      <View style={styles.basket_container}>
+        <View style={styles.counter_container}>
+          <Text style={styles.counter}>3</Text>
         </View>
-      )}
+        <TouchableOpacity onPress={handleBasket}>
+          <MaterialCommunityIcons
+            name="cart-outline"
+            size={50}
+            style={styles.basket_icon}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

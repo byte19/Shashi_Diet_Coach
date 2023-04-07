@@ -16,6 +16,7 @@ import UserInfo from './pages/UserInfo/UserInfo';
 import EditUserInfo from './pages/UserInfo/UserInfo';
 import CreateDietProgram from './pages/CreateDietProgram/CreateDietProgram';
 import ProgramDetail from './pages/ProgramDetail/ProgramDetail';
+import MyBasket from './pages/MyBasket/MyBasket';
 
 import Home from './pages/BottomTabPages/Home/Home';
 import MyPlan from './pages/BottomTabPages/MyPlan/MyPlan';
@@ -84,6 +85,7 @@ const Router = () => {
         <Stack.Screen name="EditUserInfo" component={EditUserInfo} />
         <Stack.Screen name="CreateDietProgram" component={CreateDietProgram} />
         <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+        <Stack.Screen name="MyBasket" component={MyBasket} />
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>
