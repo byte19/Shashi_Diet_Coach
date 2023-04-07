@@ -27,7 +27,7 @@ const CreateDietProgram = ({navigation}) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity onPress={handleGoBack}>
         <Icon name="angle-left" size={30} style={styles.goback_icon} />
       </TouchableOpacity>
