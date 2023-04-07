@@ -6,11 +6,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import NutriensCard from './NutriensCard';
 import colors from '../../styles/colors';
 
-const FoodCard = ({foodData}) => {
+const FoodCard = ({foodData, handleAddToBasket, iconName, iconColor}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleCollapsible = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleAddFoodToBasket = () => {
+    handleAddToBasket(foodData.hints[0].food);
   };
 
   return (
@@ -32,8 +36,8 @@ const FoodCard = ({foodData}) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="plus" color="green" size={30} />
+        <TouchableOpacity onPress={handleAddFoodToBasket}>
+          <Icon name={iconName} color={iconColor} size={30} />
         </TouchableOpacity>
       </View>
       <Collapsible collapsed={!isOpen}>
@@ -87,6 +91,6 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingTop: 2,
     marginHorizontal: 0,
-    backgroundColor: colors.brightgreen,
+    backgroundColor: colors.greenBlue,
   },
 });

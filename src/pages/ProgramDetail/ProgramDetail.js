@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'cover',
     marginBottom: 20,
-    marginTop: 10,
   },
   label: {
     textAlign: 'center',

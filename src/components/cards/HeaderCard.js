@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 20,
     padding: 10,
+    marginBottom: 5,
   },
   goback_icon: {
     fontSize: 40,

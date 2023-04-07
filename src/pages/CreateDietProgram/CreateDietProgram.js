@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View, TouchableOpacity, Image} from 'react-native';
+import {Text, TextInput, View, TouchableOpacity} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -11,15 +11,22 @@ import HeaderCard from '../../components/cards/HeaderCard';
 const CreateDietProgram = ({navigation}) => {
   const [food, setFood] = useState('');
   const [foodData, setFoodData] = useState(null);
+  const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedFoodsCount, setSelectedFoodsCount] = useState(0);
 
   const handleSearch = async () => {
     const data = await fetchFoodData(food);
-    console.log(data.hints[0].food);
+    // console.log(data.hints[0].food);
     setFoodData(data);
   };
 
+  const handleAddToBasket = foodItem => {
+    setSelectedFoods(prevState => [...prevState, foodItem]);
+    setSelectedFoodsCount(selectedFoodsCount + 1);
+  };
+
   function handleBasket() {
-    navigation.navigate('MyBasket');
+    navigation.navigate('MyBasket', {selectedFoods});
   }
 
   return (
@@ -37,12 +44,21 @@ const CreateDietProgram = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.foodcard_container}>
-        {foodData && <FoodCard foodData={foodData} />}
+        {foodData && (
+          <FoodCard
+            foodData={foodData}
+            handleAddToBasket={handleAddToBasket}
+            iconName="plus"
+            iconColor="green"
+          />
+        )}
       </View>
       <View style={styles.basket_container}>
-        <View style={styles.counter_container}>
-          <Text style={styles.counter}>3</Text>
-        </View>
+        {selectedFoods.length > 0 && (
+          <View style={styles.counter_container}>
+            <Text style={styles.counter}>{selectedFoods.length}</Text>
+          </View>
+        )}
         <TouchableOpacity onPress={handleBasket}>
           <MaterialCommunityIcons
             name="cart-outline"
