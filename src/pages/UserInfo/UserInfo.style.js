@@ -72,7 +72,6 @@ export default StyleSheet.create({
     fontSize: 14,
   },
   selected_text_style: {
-    // fontSize: 16,
     backgroundColor: '#eceff1',
     borderBottomLeftRadius: 15,
     borderTopLeftRadius: 15,

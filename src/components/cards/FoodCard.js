@@ -5,8 +5,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import NutriensCard from './NutriensCard';
 import colors from '../../styles/colors';
+import DatePickerModal from './DatePickerModal';
 
-const FoodCard = ({foodData, handleAddToBasket, iconName, iconColor}) => {
+const FoodCard = ({
+  foodData,
+  handleAddToBasket,
+  iconName,
+  iconColor,
+  showBasketInfo = false,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleCollapsible = () => {
@@ -45,6 +52,7 @@ const FoodCard = ({foodData, handleAddToBasket, iconName, iconColor}) => {
           nutrients={foodData.hints[0].food.nutrients}
           style={styles.nutrients}
         />
+        {showBasketInfo && <DatePickerModal />}
       </Collapsible>
     </View>
   );

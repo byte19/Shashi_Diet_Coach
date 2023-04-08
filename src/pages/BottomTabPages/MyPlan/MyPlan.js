@@ -4,10 +4,11 @@ import styles from './MyPlan.style';
 import {Agenda} from 'react-native-calendars';
 
 const MyPlan = () => {
-  const events = {
+  const myPlans = {
     '2023-04-07': [
-      {name: 'Etkinlik AAAAAAAA', time: '10:00'},
-      {name: 'Etkinlik 2', time: '14:00'},
+      {name: 'Breakfast', time: '10:00', content: 'elma, armut, şeftali'},
+      {name: 'Ogle', time: '10:00', content: 'elma, armut, şeftali'},
+      {name: 'Dinner', time: '10:00', content: 'elma, armut, şeftali'},
     ],
     '2023-04-08': [
       {name: 'Etkinlik 3', time: '11:00'},
@@ -22,11 +23,12 @@ const MyPlan = () => {
   return (
     <View style={styles.container}>
       <Agenda
-        items={events}
+        items={myPlans}
         renderItem={item => (
           <View style={styles.item}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text>{item.time}</Text>
+            <Text style={styles.content}>{item.content}</Text>
           </View>
         )}
       />

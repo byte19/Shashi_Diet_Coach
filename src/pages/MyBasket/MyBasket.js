@@ -15,6 +15,7 @@ const MyBasket = ({navigation, route}) => {
       {selectedFoods.map((food, index) => (
         <FoodCard
           key={index}
+          showBasketInfo={true}
           foodData={{hints: [{food: food}]}}
           iconName="remove"
           iconColor="red"
