@@ -5,39 +5,31 @@ import Modal from 'react-native-modal';
 import colors from '../../styles/colors';
 import {Dropdown} from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
-const DatePickerModal = () => {
+const DatePickerModal = ({isVisible, onClose, selectedFood}) => {
   const [date, setDate] = useState(new Date());
-  const [isVisible, setIsVisible] = useState(false);
   const [selectedRepast, setSelectedRepast] = useState();
 
   const dropdownData = [
-    {label: 'BREAKFAST', value: '1'},
-    {label: 'BRUNCH', value: '2'},
-    {label: 'LUNCH', value: '3'},
-    {label: 'DINNER', value: '4'},
-    {label: 'SUPPER', value: '5'},
-    {label: 'SNACK', value: '6'},
+    {label: 'Breakfast', value: '1'},
+    {label: 'Brunch', value: '2'},
+    {label: 'Lunch', value: '3'},
+    {label: 'Dinner', value: '4'},
+    {label: 'Snack', value: '6'},
   ];
 
   const onDateChange = selectedDate => {
     setDate(selectedDate);
-    // setIsVisible(false);
   };
 
   const handleSave = () => {
-    setIsVisible(false);
-  };
-
-  const onClose = () => {
-    setIsVisible(false);
+    isVisible(false);
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setIsVisible(true)}>
-        <Text style={styles.select_text}>Select Date</Text>
-      </TouchableOpacity>
       {isVisible && (
         <Modal
           isVisible={isVisible}

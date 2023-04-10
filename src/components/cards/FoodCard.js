@@ -7,21 +7,22 @@ import NutriensCard from './NutriensCard';
 import colors from '../../styles/colors';
 import DatePickerModal from './DatePickerModal';
 
-const FoodCard = ({
-  foodData,
-  handleAddToBasket,
-  iconName,
-  iconColor,
-  showBasketInfo = false,
-}) => {
+const FoodCard = ({foodData, iconName, iconColor}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedFood, setSelectedFood] = useState(null);
 
   const toggleCollapsible = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleAddFoodToBasket = () => {
-    handleAddToBasket(foodData.hints[0].food);
+  const handleAddFood = () => {
+    setSelectedFood(foodData.hints[0].food);
+    setModalVisible(true);
+  };
+
+  const onClose = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -43,7 +44,7 @@ const FoodCard = ({
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleAddFoodToBasket}>
+        <TouchableOpacity onPress={handleAddFood}>
           <Icon name={iconName} color={iconColor} size={30} />
         </TouchableOpacity>
       </View>
@@ -52,7 +53,11 @@ const FoodCard = ({
           nutrients={foodData.hints[0].food.nutrients}
           style={styles.nutrients}
         />
-        {showBasketInfo && <DatePickerModal />}
+        <DatePickerModal
+          isVisible={modalVisible}
+          onClose={onClose}
+          selectedFood={selectedFood}
+        />
       </Collapsible>
     </View>
   );
