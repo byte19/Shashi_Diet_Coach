@@ -1,34 +1,39 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Image} from 'react-native';
 import styles from './MyPlan.style';
 import {Agenda} from 'react-native-calendars';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+import _ from 'lodash';
 
 const MyPlan = () => {
-  const myPlans = {
-    '2023-04-07': [
-      {name: 'Breakfast', time: '10:00', content: 'elma, armut, şeftali'},
-      {name: 'Ogle', time: '10:00', content: 'elma, armut, şeftali'},
-      {name: 'Dinner', time: '10:00', content: 'elma, armut, şeftali'},
-    ],
-    '2023-04-08': [
-      {name: 'Etkinlik 3', time: '11:00'},
-      {name: 'Etkinlik 4', time: '15:00'},
-    ],
-    '2023-04-09': [
-      {name: 'Etkinlik 5', time: '12:00'},
-      {name: 'Etkinlik 6', time: '16:00'},
-    ],
-  };
+  const [MyProgram, setMyProgram] = useState({});
+
+  useEffect(() => {
+    const userId = auth().currentUser.uid;
+    const ref = database().ref(`users/${userId}/MyProgram`);
+    ref.on('value', snapshot => {
+      const programs = snapshot.val() || {};
+      const groupedPrograms = _.groupBy(
+        programs,
+        program => program.date.split(' ')[0],
+      );
+      setMyProgram(groupedPrograms);
+    });
+
+    return () => ref.off();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Agenda
-        items={myPlans}
+        items={MyProgram}
         renderItem={item => (
           <View style={styles.item}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text>{item.time}</Text>
-            <Text style={styles.content}>{item.content}</Text>
+            <Image style={styles.image} source={{uri: item.food.image}} />
+            <Text style={styles.itemName}>{item.repast}</Text>
+            <Text>{item.date}</Text>
+            <Text style={styles.content}>{item.food.label}</Text>
           </View>
         )}
       />

@@ -5,6 +5,8 @@ import Modal from 'react-native-modal';
 import colors from '../../styles/colors';
 import {Dropdown} from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {showMessage} from 'react-native-flash-message';
+import {format} from 'date-fns';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -25,7 +27,39 @@ const DatePickerModal = ({isVisible, onClose, selectedFood}) => {
   };
 
   const handleSave = () => {
-    isVisible(false);
+    if (!date || !selectedRepast) {
+      showMessage({
+        message: 'Please fill in all fields!',
+        type: 'danger',
+        floating: true,
+      });
+      return;
+    }
+    const userId = auth().currentUser.uid;
+    const formattedDate = format(date, 'yyyy-MM-dd HH:mm:ss');
+    const data = {
+      date: formattedDate,
+      repast: selectedRepast,
+      food: selectedFood,
+    };
+    database()
+      .ref(`users/${userId}/MyProgram`)
+      .push(data)
+      .then(() => {
+        showMessage({
+          message: 'Saved successfully!',
+          type: 'success',
+          floating: true,
+        });
+        onClose();
+      })
+      .catch(error => {
+        showMessage({
+          message: 'Error!',
+          type: 'danger',
+          floating: true,
+        });
+      });
   };
 
   return (
@@ -117,9 +151,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   save_text: {
-    fontSize: 15,
+    fontSize: 16,
     borderRadius: 10,
-    padding: 12,
+    padding: 10,
     textAlign: 'center',
     paddingHorizontal: 40,
     marginBottom: 0,

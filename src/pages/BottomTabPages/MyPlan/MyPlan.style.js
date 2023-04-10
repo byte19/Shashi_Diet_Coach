@@ -7,6 +7,10 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'black',
   },
+  image: {
+    width: 100,
+    height: 100,
+  },
   item: {
     padding: 10,
   },
