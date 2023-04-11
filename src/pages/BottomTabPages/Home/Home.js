@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, FlatList, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,11 +8,14 @@ import styles from './Home.style';
 import fetchDietPrograms from '../../../utils/FetchDietPrograms';
 import DietPlans from '../../../components/cards/DietPlansCard';
 import CalculateUserInfo from '../../../utils/CalculateUserInfo';
+import Loading from '../../../components/Loading/Loading';
+import getProgramImage from '../../../utils/getProgramImage';
 
 const Home = ({navigation}) => {
   const [user, setUser] = useState();
   const [dietPrograms, setDietPrograms] = useState([]);
-  const [recommendedDiet, setRecommendedDiet] = useState('');
+  const [recommendedDiet, setRecommendedDiet] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const userId = auth().currentUser.uid;
@@ -27,6 +30,7 @@ const Home = ({navigation}) => {
       const data = await fetchDietPrograms();
       if (data.length > 0) {
         setDietPrograms(data);
+        setLoading(false);
       } else {
         setDietPrograms([]);
       }
@@ -51,10 +55,13 @@ const Home = ({navigation}) => {
         maintenanceCalories,
         fatLossCalories,
       });
-
       setRecommendedDiet(diet);
     }
   }, [user]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const renderDietPlans = ({item}) => (
     <DietPlans program={item} key={item.foodId} navigation={navigation} />
@@ -99,6 +106,12 @@ const Home = ({navigation}) => {
         <View>
           <Text style={styles.plans_title}>Recommended Diet Program</Text>
           <TouchableOpacity onPress={handleRecommended}>
+            {recommendedDiet && (
+              <Image
+                style={{width: 50, height: 50}}
+                source={getProgramImage(recommendedDiet)}
+              />
+            )}
             <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
           </TouchableOpacity>
         </View>

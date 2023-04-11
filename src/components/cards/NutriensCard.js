@@ -6,17 +6,19 @@ const NutriensCard = ({nutrients, style}) => {
   return (
     <View style={{...styles.nutrients_container, ...style}}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <Text style={styles.nutrients}>
+        <Text style={{...styles.nutrients, ...style}}>
           Energy / Calories : {nutrients.ENERC_KCAL.toFixed(2)}
         </Text>
-        <Text style={styles.nutrients}>
+        <Text style={{...styles.nutrients, ...style}}>
           Carbohydrates : {nutrients.CHOCDF.toFixed(2)}
         </Text>
-        <Text style={styles.nutrients}>Fat : {nutrients.FAT.toFixed(2)}</Text>
-        <Text style={styles.nutrients}>
+        <Text style={{...styles.nutrients, ...style}}>
+          Fat : {nutrients.FAT.toFixed(2)}
+        </Text>
+        <Text style={{...styles.nutrients, ...style}}>
           Fiber : {nutrients.FIBTG.toFixed(2)}
         </Text>
-        <Text style={styles.nutrients}>
+        <Text style={{...styles.nutrients, ...style}}>
           Protein : {nutrients.PROCNT.toFixed(2)}
         </Text>
       </ScrollView>

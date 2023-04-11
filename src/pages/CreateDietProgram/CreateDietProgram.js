@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TextInput, View, TouchableOpacity} from 'react-native';
+import {TextInput, View, TouchableOpacity, Text} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import styles from './CreateDietProgram.style';

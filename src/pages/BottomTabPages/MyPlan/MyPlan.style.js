@@ -4,19 +4,34 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderColor: 'black',
+  },
+  item_container: {
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
+    borderRadius: 15,
   },
-  item: {
-    padding: 10,
+  info_container: {
+    marginLeft: 10,
   },
-  itemName: {
+  label: {
+    marginBottom: 3,
     fontWeight: 'bold',
-    marginBottom: 5,
   },
-  content: {},
+  repast: {
+    marginBottom: 3,
+  },
+  date: {},
+  nutrients: {
+    fontWeight: '400',
+    fontSize: 14,
+    height: 25,
+    padding: 1,
+    marginTop: 0,
+  },
 });

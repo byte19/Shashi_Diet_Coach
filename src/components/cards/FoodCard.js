@@ -25,41 +25,49 @@ const FoodCard = ({foodData, iconName, iconColor}) => {
     setModalVisible(false);
   };
 
+  const data = foodData && foodData.hints[0];
+
+  if (!data) {
+    return <Text style={styles.no_result}>No results found!</Text>;
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.top_container}>
-        <TouchableOpacity
-          style={styles.info_container}
-          onPress={toggleCollapsible}>
-          <Image
-            style={styles.food_image}
-            source={{uri: foodData.hints[0].food.image}}
+    <>
+      <View style={styles.container}>
+        <View style={styles.top_container}>
+          <TouchableOpacity
+            style={styles.info_container}
+            onPress={toggleCollapsible}>
+            <Image
+              style={styles.food_image}
+              source={{uri: foodData.hints[0].food.image}}
+            />
+            <View style={styles.text_container}>
+              <Text style={styles.food_label}>
+                {foodData.hints[0].food.label}
+              </Text>
+              <Text style={styles.food_category}>
+                {foodData.hints[0].food.category}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleAddFood}>
+            <Icon name={iconName} color={iconColor} size={30} />
+          </TouchableOpacity>
+        </View>
+        <Collapsible collapsed={!isOpen}>
+          <NutriensCard
+            nutrients={foodData.hints[0].food.nutrients}
+            style={styles.nutrients}
           />
-          <View style={styles.text_container}>
-            <Text style={styles.food_label}>
-              {foodData.hints[0].food.label}
-            </Text>
-            <Text style={styles.food_category}>
-              {foodData.hints[0].food.category}
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleAddFood}>
-          <Icon name={iconName} color={iconColor} size={30} />
-        </TouchableOpacity>
+          <DatePickerModal
+            isVisible={modalVisible}
+            onClose={onClose}
+            selectedFood={selectedFood}
+          />
+        </Collapsible>
       </View>
-      <Collapsible collapsed={!isOpen}>
-        <NutriensCard
-          nutrients={foodData.hints[0].food.nutrients}
-          style={styles.nutrients}
-        />
-        <DatePickerModal
-          isVisible={modalVisible}
-          onClose={onClose}
-          selectedFood={selectedFood}
-        />
-      </Collapsible>
-    </View>
+    </>
   );
 };
 
@@ -105,5 +113,10 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     marginHorizontal: 0,
     backgroundColor: colors.greenBlue,
+  },
+  no_result: {
+    textAlign: 'center',
+    margin: 10,
+    marginTop: 25,
   },
 });

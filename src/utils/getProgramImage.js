@@ -1,4 +1,4 @@
-function getProgramImage(program) {
+function getProgramImage(program, recommendedDiet) {
   switch (program.label) {
     case 'Low Carb':
       return require('../assets/images/DietPlans/low-carb.jpg');
