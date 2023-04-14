@@ -106,12 +106,10 @@ const Home = ({navigation}) => {
         <View>
           <Text style={styles.plans_title}>Recommended Diet Program</Text>
           <TouchableOpacity onPress={handleRecommended}>
-            {recommendedDiet && (
-              <Image
-                style={{width: 50, height: 50}}
-                source={getProgramImage(recommendedDiet)}
-              />
-            )}
+            {/* <Image
+              style={{width: 50, height: 50}}
+              source={getProgramImage(recommendedDiet)}
+            /> */}
             <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
           </TouchableOpacity>
         </View>
