@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {BarChart, PieChart} from 'react-native-chart-kit';
 
 import ConsumedFoodsCard from '../../../components/cards/ConsumedFoodsCard';
+import BarChartCard from '../../../components/cards/BarChartCard';
 import styles from './Results.style';
 
 const Results = () => {
@@ -16,131 +16,107 @@ const Results = () => {
     const consumedFoodsData = [];
     ref.on('value', snapshot => {
       const programs = snapshot.val() || {};
+      const today = new Date();
+      const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
       Object.values(programs).forEach(program => {
-        const today = new Date();
         const eatDate = new Date(program.date);
-        if (eatDate < today) {
-          consumedFoodsData.push(program);
+        if (eatDate <= today) {
+          if (eatDate >= lastWeek) {
+            consumedFoodsData.push({
+              ...program,
+              period: 'weekly',
+            });
+          }
+          if (eatDate >= lastMonth) {
+            consumedFoodsData.push({
+              ...program,
+              period: 'monthly',
+            });
+          }
         }
       });
-      // console.log(consumedFoodsData);
       setConsumedFoods(consumedFoodsData);
     });
-    return () => ref.off();
   }, []);
 
-  // console.log(consumedFoods);
-
-  const totals = consumedFoods.reduce((acc, consumedFood) => {
-    for (const [key, value] of Object.entries(consumedFood.food.nutrients)) {
-      if (!acc[key]) {
-        acc[key] = value;
-      } else {
-        acc[key] += value;
+  const weeklyConsumed = consumedFoods.reduce((acc, consumedFood) => {
+    if (consumedFood.period === 'weekly') {
+      for (const [key, value] of Object.entries(consumedFood.food.nutrients)) {
+        if (!acc[key]) {
+          acc[key] = value;
+        } else {
+          acc[key] += value;
+        }
       }
     }
     return acc;
   }, {});
 
-  // console.log(totals);
+  const monthlyConsumed = consumedFoods.reduce((acc, consumedFood) => {
+    if (consumedFood.period === 'monthly') {
+      for (const [key, value] of Object.entries(consumedFood.food.nutrients)) {
+        if (!acc[key]) {
+          acc[key] = value;
+        } else {
+          acc[key] += value;
+        }
+      }
+    }
+    return acc;
+  }, {});
 
-  const chartData = {
-    labels: ['ENERC_KCAL', 'FAT', 'CHOCDF', 'FIBTG', 'PROCNT'],
+  const weeklyData = {
+    labels: ['Energy(kcal)', 'Fat', 'Carbohydrate', 'Fiber', 'Protein'],
     datasets: [
       {
         data: [
-          totals.ENERC_KCAL,
-          totals.FAT,
-          totals.CHOCDF,
-          totals.FIBTG,
-          totals.PROCNT,
+          weeklyConsumed.ENERC_KCAL,
+          weeklyConsumed.FAT,
+          weeklyConsumed.CHOCDF,
+          weeklyConsumed.FIBTG,
+          weeklyConsumed.PROCNT,
         ],
       },
     ],
   };
 
-  const chartDataPie = [
-    {
-      name: 'Energy(kcal)',
-      value: totals.ENERC_KCAL,
-      color: '#F7464A',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Fat',
-      value: totals.FAT,
-      color: '#46BFBD',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Carbohydrate',
-      value: totals.CHOCDF,
-      color: '#FDB45C',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Fiber',
-      value: totals.FIBTG,
-      color: '#949FB1',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Protein',
-      value: totals.PROCNT,
-      color: '#4D5360',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-  ];
-
-  const chartConfig = {
-    backgroundColor: '#e26a00',
-    backgroundGradientFrom: '#fb8c00',
-    backgroundGradientTo: '#ffa726',
-    decimalPlaces: 2,
-    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  };
-
-  const chartStyle = {
-    marginVertical: 8,
-    borderRadius: 10,
-    margin: 10,
+  const monthlyData = {
+    labels: ['Energy(kcal)', 'Fat', 'Carbohydrate', 'Fiber', 'Protein'],
+    datasets: [
+      {
+        data: [
+          monthlyConsumed.ENERC_KCAL,
+          monthlyConsumed.FAT,
+          monthlyConsumed.CHOCDF,
+          monthlyConsumed.FIBTG,
+          monthlyConsumed.PROCNT,
+        ],
+      },
+    ],
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.weekly_chart_container}>
-        <BarChart
-          data={chartData}
-          width={370}
-          height={270}
-          chartConfig={chartConfig}
-          style={chartStyle}
-        />
+    <ScrollView style={styles.container}>
+      <View style={styles.charts_container}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View>
+            <Text style={styles.charts_title}>Weekly Chart</Text>
+            <BarChartCard data={weeklyData} />
+          </View>
+          <View>
+            <Text style={styles.charts_title}>Monthly Chart</Text>
+            <BarChartCard data={monthlyData} />
+          </View>
+        </ScrollView>
       </View>
-      <View style={styles.monthly_chart_container}>
-        <Text>aa</Text>
-        <PieChart
-          data={chartDataPie}
-          width={370}
-          height={200}
-          chartConfig={chartConfig}
-          accessor={'value'}
-          backgroundColor="transparent"
-          paddingLeft="15"
-        />
-      </View>
-      <View style={styles.consumed_container}>
+      <ScrollView style={styles.consumed_container}>
         <Text style={styles.consumed_title}>Consumed Foods</Text>
         {consumedFoods.map((food, index) => (
           <ConsumedFoodsCard key={index} food={food} />
         ))}
-      </View>
-    </View>
+      </ScrollView>
+    </ScrollView>
   );
 };
 

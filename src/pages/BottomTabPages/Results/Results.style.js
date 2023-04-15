@@ -1,29 +1,40 @@
-import {StyleSheet, Dimensions} from 'react-native';
-
-const deviceSize = Dimensions.get('window');
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
   },
-  weekly_chart_container: {
-    flex: 1,
-    height: deviceSize.height / 3,
+  charts_container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 10,
+    marginTop: 30,
+    marginBottom: 30,
   },
-  monthly_chart_container: {
-    flex: 1,
-    height: deviceSize.height / 3,
+  charts_title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderBottomWidth: 0.5,
+    marginHorizontal: 120,
+    paddingBottom: 5,
+    marginBottom: 5,
   },
   consumed_container: {
-    // flex: 1,
+    borderRadius: 10,
+    margin: 10,
+    padding: 10,
+    height: 300,
     borderWidth: 1,
-    margin: 5,
-    height: deviceSize.height / 3,
   },
   consumed_title: {
     fontSize: 16,
     fontWeight: 'bold',
-    margin: 5,
+    textAlign: 'center',
+    borderBottomWidth: 0.5,
+    marginHorizontal: 100,
+    paddingBottom: 5,
+    marginBottom: 10,
   },
 });
