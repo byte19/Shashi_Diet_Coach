@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const deviceSize = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
@@ -7,11 +9,17 @@ export default StyleSheet.create({
   },
   weekly_chart_container: {
     flex: 1,
+    height: deviceSize.height / 3,
+  },
+  monthly_chart_container: {
+    flex: 1,
+    height: deviceSize.height / 3,
   },
   consumed_container: {
-    flex: 1,
+    // flex: 1,
     borderWidth: 1,
     margin: 5,
+    height: deviceSize.height / 3,
   },
   consumed_title: {
     fontSize: 16,
