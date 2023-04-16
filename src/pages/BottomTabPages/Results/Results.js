@@ -80,11 +80,10 @@ const Results = () => {
   }, consumedByPeriod);
 
   const weeklyData = {
-    labels: ['Energy(kcal)', 'Fat', 'Carbohydrate', 'Fiber', 'Protein'],
+    labels: ['Fat', 'Carbohydrate', 'Fiber', 'Protein'],
     datasets: [
       {
         data: [
-          consumedByPeriod.weekly.ENERC_KCAL,
           consumedByPeriod.weekly.FAT,
           consumedByPeriod.weekly.CHOCDF,
           consumedByPeriod.weekly.FIBTG,
@@ -95,11 +94,10 @@ const Results = () => {
   };
 
   const monthlyData = {
-    labels: ['Energy(kcal)', 'Fat', 'Carbohydrate', 'Fiber', 'Protein'],
+    labels: ['Fat', 'Carbohydrate', 'Fiber', 'Protein'],
     datasets: [
       {
         data: [
-          consumedByPeriod.monthly.ENERC_KCAL,
           consumedByPeriod.monthly.FAT,
           consumedByPeriod.monthly.CHOCDF,
           consumedByPeriod.monthly.FIBTG,
@@ -129,11 +127,12 @@ const Results = () => {
         </ScrollView>
       </View>
       <ScrollView style={styles.consumed_container}>
-        <Text style={styles.consumed_title}>Consumed Foods</Text>
+        <Text style={styles.consumed_title}>Consumed Foods History</Text>
         {consumedFoods.map((food, index) => (
           <ConsumedFoodsCard key={index} food={food} />
         ))}
       </ScrollView>
+      <View style={styles.bottom_space} />
     </ScrollView>
   );
 };
