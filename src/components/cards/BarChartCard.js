@@ -14,6 +14,7 @@ const BarChartComponent = ({data}) => {
     borderRadius: 10,
     margin: 10,
   };
+
   return (
     <BarChart
       data={data}

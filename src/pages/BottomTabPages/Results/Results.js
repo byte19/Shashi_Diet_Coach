@@ -5,23 +5,40 @@ import database from '@react-native-firebase/database';
 
 import ConsumedFoodsCard from '../../../components/cards/ConsumedFoodsCard';
 import BarChartCard from '../../../components/cards/BarChartCard';
+import CalorieNeedCard from '../../../components/cards/CalorieNeedCard';
 import styles from './Results.style';
 
 const Results = () => {
+  const [user, setUser] = useState();
   const [consumedFoods, setConsumedFoods] = useState([]);
 
   useEffect(() => {
     const userId = auth().currentUser.uid;
-    const ref = database().ref(`users/${userId}/MyProgram`);
+    const dbRef = database().ref(`/users/${userId}`);
+    const programRef = database().ref(`users/${userId}/MyProgram`);
     const consumedFoodsData = [];
-    ref.on('value', snapshot => {
+
+    dbRef.once('value').then(snapshot => {
+      setUser(snapshot.val());
+    });
+
+    programRef.on('value', snapshot => {
       const programs = snapshot.val() || {};
       const today = new Date();
+      const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
       const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
       Object.values(programs).forEach(program => {
         const eatDate = new Date(program.date);
+
         if (eatDate <= today) {
+          if (eatDate >= yesterday) {
+            consumedFoodsData.push({
+              ...program,
+              period: 'daily',
+            });
+          }
           if (eatDate >= lastWeek) {
             consumedFoodsData.push({
               ...program,
@@ -36,46 +53,42 @@ const Results = () => {
           }
         }
       });
+
       setConsumedFoods(consumedFoodsData);
     });
   }, []);
 
-  const weeklyConsumed = consumedFoods.reduce((acc, consumedFood) => {
-    if (consumedFood.period === 'weekly') {
-      for (const [key, value] of Object.entries(consumedFood.food.nutrients)) {
-        if (!acc[key]) {
-          acc[key] = value;
-        } else {
-          acc[key] += value;
-        }
-      }
-    }
-    return acc;
-  }, {});
+  const consumedByPeriod = {
+    daily: {},
+    weekly: {},
+    monthly: {},
+  };
 
-  const monthlyConsumed = consumedFoods.reduce((acc, consumedFood) => {
-    if (consumedFood.period === 'monthly') {
-      for (const [key, value] of Object.entries(consumedFood.food.nutrients)) {
-        if (!acc[key]) {
-          acc[key] = value;
-        } else {
-          acc[key] += value;
-        }
+  consumedFoods.reduce((acc, consumedFood) => {
+    const {food, period} = consumedFood;
+    const nutrients = food.nutrients;
+
+    for (const [key, value] of Object.entries(nutrients)) {
+      if (!acc[period][key]) {
+        acc[period][key] = value;
+      } else {
+        acc[period][key] += value;
       }
     }
+
     return acc;
-  }, {});
+  }, consumedByPeriod);
 
   const weeklyData = {
     labels: ['Energy(kcal)', 'Fat', 'Carbohydrate', 'Fiber', 'Protein'],
     datasets: [
       {
         data: [
-          weeklyConsumed.ENERC_KCAL,
-          weeklyConsumed.FAT,
-          weeklyConsumed.CHOCDF,
-          weeklyConsumed.FIBTG,
-          weeklyConsumed.PROCNT,
+          consumedByPeriod.weekly.ENERC_KCAL,
+          consumedByPeriod.weekly.FAT,
+          consumedByPeriod.weekly.CHOCDF,
+          consumedByPeriod.weekly.FIBTG,
+          consumedByPeriod.weekly.PROCNT,
         ],
       },
     ],
@@ -86,11 +99,11 @@ const Results = () => {
     datasets: [
       {
         data: [
-          monthlyConsumed.ENERC_KCAL,
-          monthlyConsumed.FAT,
-          monthlyConsumed.CHOCDF,
-          monthlyConsumed.FIBTG,
-          monthlyConsumed.PROCNT,
+          consumedByPeriod.monthly.ENERC_KCAL,
+          consumedByPeriod.monthly.FAT,
+          consumedByPeriod.monthly.CHOCDF,
+          consumedByPeriod.monthly.FIBTG,
+          consumedByPeriod.monthly.PROCNT,
         ],
       },
     ],
@@ -98,15 +111,20 @@ const Results = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <CalorieNeedCard
+        user={user}
+        weeklyConsumed={consumedByPeriod.weekly}
+        dailyConsumed={consumedByPeriod.daily}
+      />
       <View style={styles.charts_container}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View>
             <Text style={styles.charts_title}>Weekly Chart</Text>
-            <BarChartCard data={weeklyData} />
+            <BarChartCard data={weeklyData} consumedFoods={consumedFoods} />
           </View>
           <View>
             <Text style={styles.charts_title}>Monthly Chart</Text>
-            <BarChartCard data={monthlyData} />
+            <BarChartCard data={monthlyData} consumedFoods={consumedFoods} />
           </View>
         </ScrollView>
       </View>
