@@ -34,18 +34,31 @@ const CalorieNeedCard = ({user, weeklyConsumed, dailyConsumed}) => {
         <View style={styles.dailyneed_container}>
           <View style={styles.needcontainer_top}>
             <Text style={styles.titles}>Daily Calorie Need</Text>
-            <Text style={styles.numbers}>
-              {maintenanceCalories.toFixed(0)} / {dailyConsumed.ENERC_KCAL}
-            </Text>
+            <View style={styles.consumed_container}>
+              <Text style={styles.numbers}>
+                {maintenanceCalories.toFixed(0)} /{' '}
+              </Text>
+              {dailyConsumed.ENERC_KCAL === 0 ? (
+                <Text style={styles.zero_text}> 0 </Text>
+              ) : (
+                <Text style={styles.numbers}>{dailyConsumed.ENERC_KCAL}</Text>
+              )}
+            </View>
           </View>
         </View>
         <View style={styles.weeklyneed_container}>
           <View style={styles.needcontainer_top}>
             <Text style={styles.titles}>Weekly Calorie Need</Text>
-            <Text style={styles.numbers}>
-              {(maintenanceCalories * 7).toFixed(0)} /{' '}
-              {weeklyConsumed.ENERC_KCAL}
-            </Text>
+            <View style={styles.consumed_container}>
+              <Text style={styles.numbers}>
+                {(maintenanceCalories * 7).toFixed(0)} /{' '}
+              </Text>
+              {weeklyConsumed.ENERC_KCAL === 0 ? (
+                <Text style={styles.zero_text}> 0 </Text>
+              ) : (
+                <Text style={styles.numbers}>{weeklyConsumed.ENERC_KCAL}</Text>
+              )}
+            </View>
           </View>
         </View>
       </View>
@@ -71,6 +84,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 70,
     borderBottomRightRadius: 70,
   },
+  consumed_container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   dailyneed_container: {
     borderRightWidth: 1,
     width: deviceSize.width / 2,
@@ -92,6 +109,12 @@ const styles = StyleSheet.create({
     color: '#e0e0e0',
   },
   numbers: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginTop: 1,
+    color: '#e0e0e0',
+  },
+  zero_text: {
     fontSize: 17,
     fontWeight: 'bold',
     marginTop: 1,

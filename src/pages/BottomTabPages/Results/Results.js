@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -13,7 +13,7 @@ const Results = () => {
   const [consumedFoods, setConsumedFoods] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
@@ -24,7 +24,6 @@ const Results = () => {
     const userId = auth().currentUser.uid;
     const dbRef = database().ref(`/users/${userId}`);
     const programRef = database().ref(`users/${userId}/MyProgram`);
-    const consumedFoodsData = [];
 
     dbRef.once('value').then(snapshot => {
       setUser(snapshot.val());
@@ -36,40 +35,37 @@ const Results = () => {
       const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
       const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+      const consumedFoodsData = [];
 
       Object.values(programs).forEach(program => {
         const eatDate = new Date(program.date);
 
-        if (eatDate <= today) {
-          if (eatDate >= yesterday) {
-            consumedFoodsData.push({
-              ...program,
-              period: 'daily',
-            });
-          }
-          if (eatDate >= lastWeek) {
-            consumedFoodsData.push({
-              ...program,
-              period: 'weekly',
-            });
-          }
-          if (eatDate >= lastMonth) {
-            consumedFoodsData.push({
-              ...program,
-              period: 'monthly',
-            });
-          }
+        if (eatDate >= yesterday) {
+          consumedFoodsData.push({
+            ...program,
+            period: 'daily',
+          });
+        } else if (eatDate >= lastWeek) {
+          consumedFoodsData.push({
+            ...program,
+            period: 'weekly',
+          });
+        } else if (eatDate >= lastMonth) {
+          consumedFoodsData.push({
+            ...program,
+            period: 'monthly',
+          });
         }
       });
-
+      consumedFoodsData.sort((a, b) => new Date(b.date) - new Date(a.date));
       setConsumedFoods(consumedFoodsData);
     });
   }, []);
 
   const consumedByPeriod = {
-    daily: {},
-    weekly: {},
-    monthly: {},
+    daily: [],
+    weekly: [],
+    monthly: [],
   };
 
   consumedFoods.reduce((acc, consumedFood) => {
@@ -138,12 +134,20 @@ const Results = () => {
           </View>
         </ScrollView>
       </View>
-      <ScrollView style={styles.consumed_container}>
-        <Text style={styles.consumed_title}>Consumed Foods History</Text>
-        {consumedFoods.map((food, index) => (
-          <ConsumedFoodsCard key={index} food={food} />
-        ))}
-      </ScrollView>
+      {consumedFoods.length === 0 ? (
+        <ScrollView style={styles.consumed_container}>
+          <Text style={styles.consumed_title}>Consumed Foods History</Text>
+          <Text style={styles.nofood_text}>No food info yet!</Text>
+        </ScrollView>
+      ) : (
+        <ScrollView style={styles.consumed_container}>
+          <Text style={styles.consumed_title}>Consumed Foods History</Text>
+          {consumedFoods.map((food, index) => (
+            <ConsumedFoodsCard key={index} food={food} />
+          ))}
+        </ScrollView>
+      )}
+
       <View style={styles.bottom_space} />
     </ScrollView>
   );

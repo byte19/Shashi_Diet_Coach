@@ -36,6 +36,9 @@ export default StyleSheet.create({
     paddingBottom: 5,
     marginBottom: 15,
   },
+  nofood_text: {
+    textAlign: 'center',
+  },
   bottom_space: {
     height: 70,
   },
