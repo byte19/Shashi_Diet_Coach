@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import FlashMessage from 'react-native-flash-message';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -49,22 +49,37 @@ function BottomTabPages() {
 const Router = () => {
   const [userSession, setUserSession] = useState();
   const [userInfo, setUserInfo] = useState(false);
+  const [firstLogin, setFirstLogin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     auth().onAuthStateChanged(user => {
       setUserSession(user);
+      if (user) {
+        const userId = user.uid;
+        database()
+          .ref(`/users/${userId}/userInfo`)
+          .once('value')
+          .then(snapshot => {
+            if (snapshot.exists()) {
+              setUserInfo(true);
+              setFirstLogin(false);
+            }
+            setLoading(false);
+          })
+          .catch(error => {
+            showMessage({
+              message: 'An error occured!',
+              type: 'danger',
+              floating: true,
+            });
+            setLoading(false);
+          });
+      } else {
+        setFirstLogin(true);
+        setLoading(false);
+      }
     });
-    const userId = auth().currentUser.uid;
-    database()
-      .ref(`/users/${userId}/userInfo`)
-      .once('value')
-      .then(snapshot => {
-        if (snapshot.exists()) {
-          setUserInfo(true);
-          setLoading(false);
-        }
-      });
   }, []);
 
   if (loading) {
@@ -76,11 +91,11 @@ const Router = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {!userSession ? (
           <Stack.Screen name="AuthPages" component={AuthPages} />
-        ) : userInfo ? (
-          <Stack.Screen name="BottomTabPages" component={BottomTabPages} />
         ) : (
-          <Stack.Screen name="UserInfo" component={UserInfo} />
+          !userInfo &&
+          firstLogin && <Stack.Screen name="UserInfo" component={UserInfo} />
         )}
+        <Stack.Screen name="BottomTabPages" component={BottomTabPages} />
         <Stack.Screen name="EditUserInfo" component={EditUserInfo} />
         <Stack.Screen name="CreateDietProgram" component={CreateDietProgram} />
         <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
