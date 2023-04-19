@@ -27,6 +27,11 @@ export default StyleSheet.create({
     marginBottom: 3,
   },
   date: {},
+  remove_icon: {
+    position: 'absolute',
+    right: 25,
+    top: 40,
+  },
   nutrients: {
     fontWeight: '400',
     fontSize: 14,

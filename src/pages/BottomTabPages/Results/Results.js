@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, Text, ScrollView, RefreshControl} from 'react-native';
+import {View, Text, ScrollView, RefreshControl, FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -38,19 +38,21 @@ const Results = () => {
       const consumedFoodsData = [];
 
       Object.values(programs).forEach(program => {
-        const eatDate = new Date(program.date);
+        const eatDate = new Date(program.date).getTime();
 
-        if (eatDate >= yesterday) {
+        if (eatDate >= yesterday.getTime()) {
           consumedFoodsData.push({
             ...program,
             period: 'daily',
           });
-        } else if (eatDate >= lastWeek) {
+        }
+        if (eatDate >= lastWeek.getTime()) {
           consumedFoodsData.push({
             ...program,
             period: 'weekly',
           });
-        } else if (eatDate >= lastMonth) {
+        }
+        if (eatDate >= lastMonth.getTime()) {
           consumedFoodsData.push({
             ...program,
             period: 'monthly',

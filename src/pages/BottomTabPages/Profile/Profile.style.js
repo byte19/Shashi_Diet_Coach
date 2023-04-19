@@ -35,10 +35,12 @@ export default StyleSheet.create({
     fontSize: 15,
     color: colors.darkGray,
     marginVertical: 10,
+    fontWeight: '500',
   },
   activity_text: {
     fontSize: 15,
     color: colors.darkGray,
+    fontWeight: '500',
   },
   icon_container: {
     flexDirection: 'row',

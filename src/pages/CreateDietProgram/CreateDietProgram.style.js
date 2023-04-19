@@ -27,33 +27,4 @@ export default StyleSheet.create({
   foodcard_container: {
     flex: 1,
   },
-  basket_container: {
-    borderWidth: 0.6,
-    borderColor: 'gray',
-    borderRadius: 20,
-    padding: 10,
-    margin: 10,
-    alignItems: 'center',
-    alignSelf: 'center',
-    width: 80,
-  },
-  counter_container: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    right: -10,
-    top: -10,
-  },
-  counter: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  basket_icon: {
-    color: colors.darkGray,
-  },
 });
