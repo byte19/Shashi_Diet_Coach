@@ -38,7 +38,7 @@ const CalorieNeedCard = ({user, weeklyConsumed, dailyConsumed}) => {
               <Text style={styles.numbers}>
                 {maintenanceCalories.toFixed(0)} /{' '}
               </Text>
-              {dailyConsumed.ENERC_KCAL === 0 ? (
+              {!dailyConsumed.ENERC_KCAL ? (
                 <Text style={styles.zero_text}> 0 </Text>
               ) : (
                 <Text style={styles.numbers}>{dailyConsumed.ENERC_KCAL}</Text>
@@ -53,7 +53,7 @@ const CalorieNeedCard = ({user, weeklyConsumed, dailyConsumed}) => {
               <Text style={styles.numbers}>
                 {(maintenanceCalories * 7).toFixed(0)} /{' '}
               </Text>
-              {weeklyConsumed.ENERC_KCAL === 0 ? (
+              {!weeklyConsumed.ENERC_KCAL ? (
                 <Text style={styles.zero_text}> 0 </Text>
               ) : (
                 <Text style={styles.numbers}>{weeklyConsumed.ENERC_KCAL}</Text>

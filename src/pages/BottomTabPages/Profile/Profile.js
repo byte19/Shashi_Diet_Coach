@@ -15,9 +15,11 @@ const Profile = ({navigation}) => {
   useEffect(() => {
     const userId = auth().currentUser.uid;
     const dbRef = database().ref(`/users/${userId}`);
-    dbRef.once('value').then(snapshot => {
+    const onValueChange = snapshot => {
       setUser(snapshot.val());
-    });
+    };
+    dbRef.on('value', onValueChange);
+    return () => dbRef.off('value', onValueChange);
   }, []);
 
   const activityLevels = {
