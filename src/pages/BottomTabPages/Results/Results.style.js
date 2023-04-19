@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../styles/colors';
 
 export default StyleSheet.create({
   container: {
@@ -15,8 +16,10 @@ export default StyleSheet.create({
   charts_title: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: colors.titlesGray,
     textAlign: 'center',
     borderBottomWidth: 0.5,
+    borderColor: colors.titlesGray,
     marginHorizontal: 110,
     paddingBottom: 5,
     marginBottom: 10,
@@ -30,8 +33,10 @@ export default StyleSheet.create({
   consumed_title: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: colors.titlesGray,
     textAlign: 'center',
     borderBottomWidth: 0.5,
+    borderColor: colors.titlesGray,
     marginHorizontal: 70,
     paddingBottom: 5,
     marginBottom: 15,

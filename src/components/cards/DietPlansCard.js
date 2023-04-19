@@ -14,7 +14,7 @@ const DietPlans = ({program, navigation}) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={getProgramImage(program)}
+          source={getProgramImage(program.label)}
           resizeMode="cover"
         />
         <Text style={styles.label}>{program.label}</Text>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 10,
-    opacity: 0.2,
+    opacity: 0.3,
   },
   label: {
     textAlign: 'center',

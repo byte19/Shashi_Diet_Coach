@@ -12,7 +12,7 @@ const ProgramDetail = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <HeaderCard text="Program Detail" navigation={navigation} />
-      <Image style={styles.image} source={getProgramImage(program)} />
+      <Image style={styles.image} source={getProgramImage(program.label)} />
       <Text style={styles.label}>{program.label}</Text>
       <View style={styles.category_container}>
         <Text style={styles.category_title}>Category =</Text>

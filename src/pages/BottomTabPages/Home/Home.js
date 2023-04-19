@@ -71,14 +71,27 @@ const Home = ({navigation}) => {
     navigation.navigate('CreateDietProgram');
   }
 
+  // function handleRecommended() {
+  //   const selectedProgram = dietPrograms.find(
+  //     program => program.label === recommendedDiet,
+  //   );
+  //   if (selectedProgram) {
+  //     navigation.navigate('ProgramDetail', {program: selectedProgram});
+  //   }
+  // }
+
   function handleRecommended() {
-    const selectedProgram = dietPrograms.find(
-      program => program.label === recommendedDiet,
-    );
-    if (selectedProgram) {
-      navigation.navigate('ProgramDetail', {program: selectedProgram});
+    if (recommendedDiet) {
+      const selectedProgram = dietPrograms.find(
+        program => program.label === recommendedDiet,
+      );
+      if (selectedProgram) {
+        navigation.navigate('ProgramDetail', {program: selectedProgram});
+      }
     }
   }
+
+  // console.log(recommendedDiet);
 
   return (
     <View style={styles.container}>
@@ -105,11 +118,14 @@ const Home = ({navigation}) => {
         />
         <View>
           <Text style={styles.plans_title}>Recommended Diet Program</Text>
-          <TouchableOpacity onPress={handleRecommended}>
-            {/* <Image
-              style={{width: 50, height: 50}}
+          <TouchableOpacity
+            onPress={handleRecommended}
+            style={styles.recommended_container}>
+            <Image
+              style={styles.recommended_image}
               source={getProgramImage(recommendedDiet)}
-            /> */}
+              resizeMode="cover"
+            />
             <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
           </TouchableOpacity>
         </View>

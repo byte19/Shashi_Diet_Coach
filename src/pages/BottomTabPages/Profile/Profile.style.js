@@ -6,7 +6,7 @@ const deviceSize = Dimensions.get('window');
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.greenBlue,
+    backgroundColor: colors.mattegreen,
   },
   top_container: {
     flexDirection: 'row',
@@ -21,41 +21,32 @@ export default StyleSheet.create({
     borderRadius: 40,
     marginLeft: 15,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'black',
   },
   top_user_info_container: {
     padding: 10,
   },
   username: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 20,
     color: colors.darkGray,
   },
   gender: {
-    marginBottom: 8,
-    fontSize: 14,
+    fontSize: 15,
     color: colors.darkGray,
-  },
-  activity_title: {
-    fontWeight: '500',
-    borderBottomWidth: 1,
-    borderColor: 'gray',
-    marginRight: 15,
-    marginBottom: 3,
-    fontSize: 16,
-    color: colors.darkGray,
+    marginVertical: 10,
   },
   activity_text: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.darkGray,
   },
   icon_container: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     position: 'absolute',
-    right: 10,
-    top: 40,
-    width: 80,
+    right: 15,
+    top: 45,
+    width: 70,
   },
   bottom_container: {
     flex: 1,

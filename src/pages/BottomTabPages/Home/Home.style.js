@@ -22,7 +22,7 @@ export default StyleSheet.create({
   },
   create_container: {
     justifyContent: 'center',
-    backgroundColor: colors.mattegreen,
+    backgroundColor: colors.logoGreen,
     borderRadius: 15,
     margin: 10,
     marginTop: 20,
@@ -42,20 +42,34 @@ export default StyleSheet.create({
   plans_title: {
     fontSize: 17,
     fontWeight: 'bold',
+    color: colors.titlesGray,
     textAlign: 'center',
     borderBottomWidth: 1,
+    borderColor: colors.titlesGray,
     margin: 10,
     paddingBottom: 10,
     marginHorizontal: 80,
   },
-  recommended_diet: {
-    backgroundColor: colors.greenBlue,
+  recommended_container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.darkGray,
     borderRadius: 10,
     height: 70,
+    margin: 7,
+  },
+  recommended_image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+    opacity: 0.3,
+  },
+  recommended_diet: {
     textAlign: 'center',
     fontSize: 15,
     fontWeight: 'bold',
-    margin: 7,
-    paddingTop: 22,
+    position: 'absolute',
+    color: 'white',
+    flex: 1,
   },
 });

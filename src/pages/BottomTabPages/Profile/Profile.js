@@ -92,10 +92,11 @@ const Profile = ({navigation}) => {
         </TouchableOpacity>
         <View style={styles.top_user_info_container}>
           <Text style={styles.username}>{user ? user.username : ''}</Text>
-          <Text style={styles.gender}>{user ? user.userInfo.gender : ''}</Text>
-          <Text style={styles.activity_title}>Activity</Text>
+          <Text style={styles.gender}>
+            {user ? '# ' + user.userInfo.gender : ''}
+          </Text>
           <Text style={styles.activity_text}>
-            {user ? user.userInfo.activity.label : ''}
+            {user ? '# ' + user.userInfo.activity.label : ''}
           </Text>
         </View>
         <View style={styles.icon_container}>

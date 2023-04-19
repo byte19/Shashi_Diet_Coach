@@ -1,5 +1,5 @@
-function getProgramImage(program, recommendedDiet) {
-  switch (program.label) {
+function getProgramImage(program) {
+  switch (program) {
     case 'Low Carb':
       return require('../assets/images/DietPlans/low-carb.jpg');
     case 'Low-Fat (1 Percent or 2 Percent) Milk':
