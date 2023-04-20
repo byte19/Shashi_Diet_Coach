@@ -20,25 +20,6 @@ export default StyleSheet.create({
     fontWeight: '400',
     color: colors.logoGreen,
   },
-  create_container: {
-    justifyContent: 'center',
-    backgroundColor: colors.logoGreen,
-    borderRadius: 15,
-    margin: 10,
-    marginTop: 20,
-    paddingHorizontal: 15,
-    paddingRight: 25,
-    height: 70,
-  },
-  touchableOpacity: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  create_title: {
-    fontSize: 15,
-    color: 'white',
-  },
   plans_title: {
     fontSize: 17,
     fontWeight: 'bold',

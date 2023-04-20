@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './Home.style';
 import fetchDietPrograms from '../../../utils/FetchDietPrograms';
@@ -10,6 +9,7 @@ import DietPlans from '../../../components/cards/DietPlansCard';
 import CalculateUserInfo from '../../../utils/CalculateUserInfo';
 import Loading from '../../../components/Loading/Loading';
 import getProgramImage from '../../../utils/getProgramImage';
+import HomeCreateButtonCard from '../../../components/cards/HomeCreateButtonCard';
 
 const Home = ({navigation}) => {
   const [user, setUser] = useState();
@@ -20,9 +20,11 @@ const Home = ({navigation}) => {
   useEffect(() => {
     const userId = auth().currentUser.uid;
     const dbRef = database().ref(`/users/${userId}`);
-    dbRef.once('value').then(snapshot => {
+    const onValueChange = snapshot => {
       setUser(snapshot.val());
-    });
+    };
+    dbRef.on('value', onValueChange);
+    return () => dbRef.off('value', onValueChange);
   }, []);
 
   useEffect(() => {
@@ -71,15 +73,6 @@ const Home = ({navigation}) => {
     navigation.navigate('CreateDietProgram');
   }
 
-  // function handleRecommended() {
-  //   const selectedProgram = dietPrograms.find(
-  //     program => program.label === recommendedDiet,
-  //   );
-  //   if (selectedProgram) {
-  //     navigation.navigate('ProgramDetail', {program: selectedProgram});
-  //   }
-  // }
-
   function handleRecommended() {
     if (recommendedDiet) {
       const selectedProgram = dietPrograms.find(
@@ -91,23 +84,12 @@ const Home = ({navigation}) => {
     }
   }
 
-  // console.log(recommendedDiet);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.header_text}>Home</Text>
       </View>
-      <View style={styles.create_container}>
-        <TouchableOpacity
-          style={styles.touchableOpacity}
-          onPress={handleCreate}>
-          <Text style={styles.create_title}>
-            Create your personal diet program!
-          </Text>
-          <Icon name="plus" size={30} color="white" />
-        </TouchableOpacity>
-      </View>
+      <HomeCreateButtonCard handleCreate={handleCreate} />
       <View>
         <Text style={styles.plans_title}>Diet Programs</Text>
         <FlatList

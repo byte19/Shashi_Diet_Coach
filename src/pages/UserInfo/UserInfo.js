@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
 import {Dropdown} from 'react-native-element-dropdown';
 import {showMessage} from 'react-native-flash-message';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
 import styles from './UserInfo.style';
-import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import GenderCheckBoxCard from '../../components/cards/GenderCheckBoxCard';
+import UserInfoInputCard from '../../components/cards/UserInfoInputCard';
 
 const UserInfo = ({navigation}) => {
   const [userInfo, setUserInfo] = useState({});
@@ -57,48 +57,8 @@ const UserInfo = ({navigation}) => {
         used to calculate your Body Mass Index and Daily Calorie Needs and to
         recommend diet programs to you.
       </Text>
-      <View style={styles.gender_container}>
-        <View style={styles.gender_info_containers}>
-          <CheckBox
-            value={userInfo.gender === 'male'}
-            onValueChange={newValue =>
-              setUserInfo({...userInfo, gender: newValue ? 'male' : 'female'})
-            }
-            style={styles.checkbox}
-          />
-          <Text style={styles.gender_text}>Male</Text>
-        </View>
-        <View style={styles.gender_info_containers}>
-          <CheckBox
-            value={userInfo.gender === 'female'}
-            onValueChange={newValue =>
-              setUserInfo({...userInfo, gender: newValue ? 'female' : 'male'})
-            }
-            style={styles.checkbox}
-          />
-          <Text style={styles.gender_text}>Female</Text>
-        </View>
-      </View>
-      <View style={styles.input_container}>
-        <Input
-          placeholder="Age"
-          value={userInfo.age}
-          style={styles.input}
-          onChangeText={text => setUserInfo({...userInfo, age: text})}
-        />
-        <Input
-          placeholder="Height (cm)"
-          value={userInfo.height}
-          style={styles.input}
-          onChangeText={text => setUserInfo({...userInfo, height: text})}
-        />
-        <Input
-          placeholder="Weight (kg)"
-          value={userInfo.weight}
-          style={styles.input}
-          onChangeText={text => setUserInfo({...userInfo, weight: text})}
-        />
-      </View>
+      <GenderCheckBoxCard userInfo={userInfo} setUserInfo={setUserInfo} />
+      <UserInfoInputCard userInfo={userInfo} setUserInfo={setUserInfo} />
       <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholder_style}

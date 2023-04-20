@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import styles from './MyPlan.style';
 import {Agenda} from 'react-native-calendars';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import Collapsible from 'react-native-collapsible';
 import _ from 'lodash';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import NutriensCard from '../../../components/cards/NutriensCard';
+import MyPlanRenderAgenda from '../../../components/cards/MyPlanRenderAgenda';
 
 const MyPlan = () => {
   const [MyProgram, setMyProgram] = useState();
@@ -43,33 +42,13 @@ const MyPlan = () => {
       <Agenda
         items={MyProgram}
         renderItem={item => (
-          <View>
-            <TouchableOpacity onPress={() => toggleCollapsible(item.id)}>
-              <View style={styles.item_container}>
-                <Image style={styles.image} source={{uri: item.food.image}} />
-                <View style={styles.info_container}>
-                  <Text style={styles.label}>{item.food.label}</Text>
-                  <Text style={styles.repast}>{item.repast}</Text>
-                  <Text style={styles.date}>
-                    {item.date.split(' ')[1].slice(0, 5)}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <Icon
-              name="remove"
-              size={20}
-              color="red"
-              style={styles.remove_icon}
-              onPress={() => removeFood(item.id)}
-            />
-            <Collapsible collapsed={!isOpen[item.id]}>
-              <NutriensCard
-                nutrients={item.food.nutrients}
-                style={styles.nutrients}
-              />
-            </Collapsible>
-          </View>
+          <MyPlanRenderAgenda
+            item={item}
+            toggleCollapsible={toggleCollapsible}
+            removeFood={removeFood}
+            isOpen={isOpen}
+            NutriensCard={NutriensCard}
+          />
         )}
       />
     </View>

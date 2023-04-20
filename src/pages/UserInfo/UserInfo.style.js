@@ -30,35 +30,6 @@ export default StyleSheet.create({
     fontSize: 18,
     fontStyle: 'italic',
   },
-  gender_container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-  },
-  gender_info_containers: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  gender_text: {
-    fontSize: 16,
-    marginHorizontal: 5,
-  },
-  checkbox: {
-    transform: [{scale: 1.2}],
-  },
-  input_container: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginHorizontal: 5,
-    margin: 10,
-  },
-  input: {
-    width: 115,
-    borderColor: '#a0a0a0',
-  },
   dropdown: {
     height: 50,
     borderColor: '#a0a0a0',

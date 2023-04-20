@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from 'react-native';
 
 import colors from '../../styles/colors';
 import getProgramImage from '../../utils/getProgramImage';
@@ -8,6 +15,10 @@ import HeaderCard from '../../components/cards/HeaderCard';
 
 const ProgramDetail = ({navigation, route}) => {
   const {program} = route.params;
+
+  function handleStart() {
+    Alert.alert('Coming soon...');
+  }
 
   return (
     <View style={styles.container}>
@@ -29,7 +40,7 @@ const ProgramDetail = ({navigation, route}) => {
         )}
       </View>
       <NutriensCard nutrients={program.nutrients} />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleStart}>
         <Text style={styles.start_text}>Start</Text>
       </TouchableOpacity>
     </View>
@@ -54,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: colors.titlesGray,
   },
   category_container: {
     flexDirection: 'row',

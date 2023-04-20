@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text, Alert} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
 import colors from '../../styles/colors';
@@ -62,6 +62,10 @@ const DatePickerModal = ({isVisible, onClose, selectedFood}) => {
       });
   };
 
+  function handleAlarm() {
+    Alert.alert('Coming soon...');
+  }
+
   return (
     <View style={styles.container}>
       {isVisible && (
@@ -87,7 +91,7 @@ const DatePickerModal = ({isVisible, onClose, selectedFood}) => {
             }}
           />
           <View style={styles.button_icon_container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleAlarm}>
               <Icon name="bell" size={30} style={styles.bell_icon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSave}>
