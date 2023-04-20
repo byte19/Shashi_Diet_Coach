@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, Text, ScrollView, RefreshControl, FlatList} from 'react-native';
+import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -12,6 +12,7 @@ const Results = () => {
   const [user, setUser] = useState();
   const [consumedFoods, setConsumedFoods] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [dailyConsumedFoods, setDailyConsumedFoods] = useState([]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -36,16 +37,24 @@ const Results = () => {
       const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
       const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
       const consumedFoodsData = [];
+      const dailyConsumedFoodsData = [];
 
       Object.values(programs).forEach(program => {
         const eatDate = new Date(program.date).getTime();
 
-        if (eatDate >= yesterday.getTime()) {
+        if (eatDate >= yesterday.getTime() && eatDate < today.getTime()) {
           consumedFoodsData.push({
             ...program,
             period: 'daily',
           });
+
+          dailyConsumedFoodsData.push({
+            ...program,
+            period: 'daily',
+            quantity: 1,
+          });
         }
+
         if (eatDate >= lastWeek.getTime()) {
           consumedFoodsData.push({
             ...program,
@@ -61,6 +70,7 @@ const Results = () => {
       });
       consumedFoodsData.sort((a, b) => new Date(b.date) - new Date(a.date));
       setConsumedFoods(consumedFoodsData);
+      setDailyConsumedFoods(dailyConsumedFoodsData);
     });
   }, []);
 
@@ -144,7 +154,7 @@ const Results = () => {
       ) : (
         <ScrollView style={styles.consumed_container}>
           <Text style={styles.consumed_title}>Consumed Foods History</Text>
-          {consumedFoods.map((food, index) => (
+          {dailyConsumedFoods.map((food, index) => (
             <ConsumedFoodsCard key={index} food={food} />
           ))}
         </ScrollView>
