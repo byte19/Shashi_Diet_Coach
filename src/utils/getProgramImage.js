@@ -1,4 +1,5 @@
 function getProgramImage(program) {
+  // Returns a photo based on diet program names.
   switch (program) {
     case 'Low Carb':
       return require('../assets/images/DietPlans/low-carb.jpg');

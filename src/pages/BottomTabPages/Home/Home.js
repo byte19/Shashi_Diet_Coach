@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -8,8 +8,8 @@ import fetchDietPrograms from '../../../utils/FetchDietPrograms';
 import DietPlans from '../../../components/cards/DietPlansCard';
 import CalculateUserInfo from '../../../utils/CalculateUserInfo';
 import Loading from '../../../components/Loading/Loading';
-import getProgramImage from '../../../utils/getProgramImage';
 import HomeCreateButtonCard from '../../../components/cards/HomeCreateButtonCard';
+import HomeRecommendedDietCard from '../../../components/cards/HomeRecommendedDietCard';
 
 const Home = ({navigation}) => {
   const [user, setUser] = useState();
@@ -51,7 +51,7 @@ const Home = ({navigation}) => {
             ? user.userInfo.activity.label
             : undefined,
         });
-
+      // According to the user info, it recommends the recommended diet program to the user by using the CalculateUserInfo.suggestDiet function.
       const diet = CalculateUserInfo.suggestDiet({
         bmi,
         maintenanceCalories,
@@ -100,16 +100,10 @@ const Home = ({navigation}) => {
         />
         <View>
           <Text style={styles.plans_title}>Recommended Diet Program</Text>
-          <TouchableOpacity
-            onPress={handleRecommended}
-            style={styles.recommended_container}>
-            <Image
-              style={styles.recommended_image}
-              source={getProgramImage(recommendedDiet)}
-              resizeMode="cover"
-            />
-            <Text style={styles.recommended_diet}>{recommendedDiet}</Text>
-          </TouchableOpacity>
+          <HomeRecommendedDietCard
+            recommendedDiet={recommendedDiet}
+            handleRecommended={handleRecommended}
+          />
         </View>
       </View>
     </View>

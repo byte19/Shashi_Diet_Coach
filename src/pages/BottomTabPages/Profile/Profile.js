@@ -37,6 +37,7 @@ const Profile = ({navigation}) => {
     : activityLevels.Default;
 
   const {bmi, maintenanceCalories, fatLossCalories} =
+    // It takes userInfo and performs calculations using the CalculateUserInfo function.
     user?.userInfo?.height && user?.userInfo?.weight && user?.userInfo?.age
       ? CalculateUserInfo.calculateInfo({
           height: user.userInfo.height,

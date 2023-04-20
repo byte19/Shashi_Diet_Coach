@@ -42,6 +42,7 @@ const Results = () => {
       Object.values(programs).forEach(program => {
         const eatDate = new Date(program.date).getTime();
 
+        // It adds a period to the consumed food according to its date.
         if (eatDate >= yesterday.getTime() && eatDate < today.getTime()) {
           consumedFoodsData.push({
             ...program,
@@ -68,7 +69,7 @@ const Results = () => {
           });
         }
       });
-      consumedFoodsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+      consumedFoodsData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date from new to old.
       setConsumedFoods(consumedFoodsData);
       setDailyConsumedFoods(dailyConsumedFoodsData);
     });
@@ -79,8 +80,8 @@ const Results = () => {
     weekly: [],
     monthly: [],
   };
-
   consumedFoods.reduce((acc, consumedFood) => {
+    // It collects the nutrient amounts of the consumed food.
     const {food, period} = consumedFood;
     const nutrients = food.nutrients;
 

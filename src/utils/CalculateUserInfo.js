@@ -1,4 +1,5 @@
 const calculateInfo = ({height, weight, age, activityLevel}) => {
+  //According to the user info, calculates amounts the body mass index, daily calorie needs and fat loss calorie .
   const heightInMeters = height / 100;
   const bmi = weight / (heightInMeters * heightInMeters);
   const bmr = 10 * weight + 6.25 * height - 5 * age;
@@ -29,6 +30,7 @@ const calculateInfo = ({height, weight, age, activityLevel}) => {
 };
 
 const suggestDiet = ({bmi, maintenanceCalories, fatLossCalories}) => {
+  // It selects the recommended diet program according to the user body mass index, daily calorie needs and fat loss calories.
   let diet;
   if (bmi >= 30) {
     diet = 'Low Carb';

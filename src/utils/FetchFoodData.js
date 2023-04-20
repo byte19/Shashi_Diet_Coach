@@ -7,7 +7,6 @@ const fetchFoodData = async food => {
   const url = `https://api.edamam.com/api/food-database/v2/parser?ingr=${food}&app_id=${appId}&app_key=${appKey}`;
   try {
     const response = await axios.get(url);
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

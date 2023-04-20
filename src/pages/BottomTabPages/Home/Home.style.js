@@ -31,26 +31,4 @@ export default StyleSheet.create({
     paddingBottom: 10,
     marginHorizontal: 80,
   },
-  recommended_container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.darkGray,
-    borderRadius: 10,
-    height: 70,
-    margin: 7,
-  },
-  recommended_image: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
-    opacity: 0.3,
-  },
-  recommended_diet: {
-    textAlign: 'center',
-    fontSize: 15,
-    fontWeight: 'bold',
-    position: 'absolute',
-    color: 'white',
-    flex: 1,
-  },
 });

@@ -53,6 +53,7 @@ const Router = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // It checks if the user has the first login and is logged in to make the correct redirects.
     auth().onAuthStateChanged(user => {
       setUserSession(user);
       if (user) {
@@ -69,7 +70,7 @@ const Router = () => {
           })
           .catch(error => {
             showMessage({
-              message: 'An error occured!',
+              message: 'An error occured!' + error,
               type: 'danger',
               floating: true,
             });

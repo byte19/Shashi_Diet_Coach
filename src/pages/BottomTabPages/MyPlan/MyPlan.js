@@ -19,6 +19,7 @@ const MyPlan = () => {
     ref.on('value', snapshot => {
       const programs = snapshot.val() || {};
       const groupedPrograms = _.groupBy(
+        // It arranges the data according to their dates in order to display them correctly in the Agenda.
         programs,
         program => program.date.split(' ')[0],
       );
