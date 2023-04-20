@@ -6,7 +6,7 @@ ____________
 ### Description 
 - Users can register and login.
 - After logging in and enters some information, according to this information, body mass index, daily calorie needs, fat loss calorie and recommended diet program are calculated.
-- The main page shows the diet programs from the API and the recommended diet program. In addition, user can search for food and create his own diet program by clicking Create Diet Program. While creating his own program, user can add time and meal information to the foods.
+- The main page shows the diet programs from the API and the recommended diet program. In addition, user can search for food and create own diet program by clicking Create Diet Program. While creating own program, user can add time and meal information to the foods.
 - User can view the saved foods on the calendar on the My Plan page and delete it if wishes.
 - On the Results page, the user can view the daily and weekly calorie needs and the calories consumed.
 - In addition, users can see the total nutritional values of the foods consumed in weekly and monthly charts.
