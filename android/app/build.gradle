@@ -1,6 +1,5 @@
 apply plugin: "com.android.application"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
-apply plugin: 'com.google.gms.google-services'
 apply plugin: "com.facebook.react"
 
 import com.android.build.OutputFile
@@ -149,11 +148,19 @@ android {
         }
     }
 }
+// plugins {
+//   id 'com.android.application'
+
+//   // Add the Google services Gradle plugin
+//   id 'com.google.gms.google-services'
+// }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
+    // implementation platform("com.google.firebase:firebase-bom:32.8.0")
+    implementation platform('com.google.firebase:firebase-bom:32.8.0')
+    implementation("com.google.firebase:firebase-analytics")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
@@ -171,3 +178,4 @@ dependencies {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+apply plugin: 'com.google.gms.google-services'

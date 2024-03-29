@@ -7,6 +7,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import Loading from './components/Loading/Loading';
+import firebase from '@react-native-firebase/app';
+
 
 import Main from './pages/AuthPages/Main/Main';
 import Login from './pages/AuthPages/Login/Login';
@@ -25,6 +27,10 @@ import Profile from './pages/BottomTabPages/Profile/Profile';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+if (!firebase.apps.length) {
+  firebase.initializeApp();
+  // Optionally, pass your Firebase config object to initializeApp() here
+}
 function AuthPages() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>

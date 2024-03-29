@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "109316705173",
-    "project_id": "mydietcoach-256eb",
-    "storage_bucket": "mydietcoach-256eb.appspot.com"
+    "project_number": "606272546861",
+    "project_id": "mtp-dietcoach",
+    "storage_bucket": "mtp-dietcoach.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:109316705173:android:d107e3867ffb70fbe4449c",
+        "mobilesdk_app_id": "1:606272546861:android:c758a2a87b3000b29530a4",
         "android_client_info": {
           "package_name": "com.dietcoach"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "109316705173-ggcfpim2kg5f8fd98ttsi38ggnb0cgcn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA7tNxXc3NPC8Dhw_Rohx3zHOqHFBGmrkw"
+          "current_key": "AIzaSyCBz3x5zRsX1GP2e9-KFUFirocc_CGzy9U"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "109316705173-ggcfpim2kg5f8fd98ttsi38ggnb0cgcn.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

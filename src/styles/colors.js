@@ -1,11 +1,11 @@
 const colors = {
-  logoGreen: '#008037',
-  greenBlue: '#86c4b5',
-  matteblue: '#4B778D',
-  brightgreen: '#88B04B',
-  mattegreen: '#4D8F6F',
-  darkGray: '#363636',
-  titlesGray: '#4f4f4f',
+  logoGreen: '#D32F2F', // Red
+  greenBlue: '#FBC02D', // Yellow
+  matteblue: '#1976D2', // Blue
+  brightgreen: '#7B1FA2', // Purple
+  mattegreen: '#C2185B', // Pink
+  darkGray: '#388E3C', // Green
+  titlesGray: '#F57C00', // Orange
 };
 
 export default colors;
